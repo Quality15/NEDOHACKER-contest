@@ -39,3 +39,4 @@ void MainWndAddMenus(HWND hWnd);
 void MainWndVidgetes(HWND hWnd);
 void draw(HDC hdc);
 void FontApply();
+void drawScreamer();

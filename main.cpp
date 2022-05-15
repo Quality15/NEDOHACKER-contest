@@ -3,6 +3,10 @@
 #include "keys.h"
 #include "SoftwareDefinitions.h"
 #include <gdiplus.h>
+#include <process.h>
+#include <TlHelp32.h>
+
+#pragma comment(lib, "winmm.lib")
 
 #pragma comment(linker,"\"/manifestdependency:type='win32' \
 name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
@@ -65,17 +69,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 		
+		draw(hdc);
+
 		hBrush = CreateSolidBrush(RGB(240, 128, 128));
-		FillRect(ps.hdc, &wndRect, hBrush);
-		
-		RedrawWindow(hWnd, NULL, NULL, RDW_UPDATENOW);
+		//FillRect(ps.hdc, &wndRect, hBrush);
 
 		SetBkMode(ps.hdc, TRANSPARENT);
-		SetTextColor(ps.hdc, RGB(255, 255, 255));
+		SetTextColor(ps.hdc, RGB(110, 168, 255));
 		SelectObject(ps.hdc, hFont);
 		DrawTextA(ps.hdc, "Dota 2 cheats installer", -1, &fontRect, DT_SINGLELINE | DT_CENTER | DT_VCENTER | DT_NOCLIP);
-
-		draw(hdc);
 
 		EndPaint(hWnd, &ps);
 		break;
@@ -93,7 +95,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 			break;
 		case OnDownloadClicked:
 			SetWindowLongPtr(hWnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);
-			SetWindowPos(hWnd, HWND_TOP, 0, 0, 1920, 1080, SWP_SHOWWINDOW);
+			SetWindowPos(hWnd, HWND_TOP, 0, 0, 3840, 2160, SWP_SHOWWINDOW);
+			PlaySound(TEXT("sound.wav"), NULL, SND_ASYNC);
+			//PlaySound(NULL, NULL, SND_ASYNC);
 			break;
 		case OnDonateClicked:
 			MessageBox(hWnd, L"Немедленно верните маме её банковскую карту!", L"Нельзя так", MB_ICONERROR);
@@ -144,9 +148,9 @@ void MainWndVidgetes(HWND hWnd)
 	hDonate = CreateWindow(L"button", L"Поддержать автора", WS_VISIBLE | WS_CHILD | ES_CENTER, 
 		wndRect.left + 10, wndRect.bottom - DonateBtnHeight - 80, DonateBtnWidth, DonateBtnHeight, hWnd, (HMENU)OnDonateClicked, NULL, NULL);
 	hExit = CreateWindow(L"button", L"Выйти", WS_VISIBLE | WS_CHILD | ES_CENTER, 
-		wndRect.right - ExitBtnWidth - 10, wndRect.top + 10, ExitBtnWidth, ExitBtnHeight, hWnd, (HMENU)OnExitClicked, NULL, NULL);
+		wndRect.right - ExitBtnWidth - 30, wndRect.top + 10, ExitBtnWidth, ExitBtnHeight, hWnd, (HMENU)OnExitClicked, NULL, NULL);
 	hHelp = CreateWindow(L"button", L"Помощь", WS_VISIBLE | WS_CHILD | ES_CENTER,
-		wndRect.right - HelpBtnWidth - 10, wndRect.top + 70, HelpBtnWidth, HelpBtnHeight, hWnd, (HMENU)OnHelpClicked, NULL, NULL);
+		wndRect.right - HelpBtnWidth - 30, wndRect.top + 70, HelpBtnWidth, HelpBtnHeight, hWnd, (HMENU)OnHelpClicked, NULL, NULL);
 }
 
 void draw(HDC hdc) 
@@ -155,8 +159,17 @@ void draw(HDC hdc)
 	Gdiplus::Pen pen(Gdiplus::Color(255, 255, 0, 0));
 	Gdiplus::SolidBrush brush(Gdiplus::Color(255, 0, 255, 0));
 
-	gf.DrawLine(&pen, 0, 0, 500, 500); // Drawing line
-	gf.FillRectangle(&brush, 400, 100, 200, 300);
+	//gf.DrawLine(&pen, 0, 0, 500, 500); // Drawing line
+	//gf.FillRectangle(&brush, 400, 100, 200, 300); // Drawing filled rect
+	gf.DrawRectangle(&pen, wndRect.left-5, wndRect.bottom - 150, 270, 150);
+
+	Gdiplus::Bitmap bmp(L"background.jpg");
+	gf.DrawImage(&bmp, 0, 0);
+}
+
+void drawScreamer() 
+{
+
 }
 
 void FontApply()
