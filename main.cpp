@@ -1,4 +1,4 @@
-#include <windows.h>
+п»ї#include <windows.h>
 #include <tchar.h>
 #include "keys.h"
 #include "SoftwareDefinitions.h"
@@ -12,49 +12,49 @@
 name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
 processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
-int WINAPI _tWinMain(HINSTANCE This, // Дескриптор текущего приложения
-	HINSTANCE Prev, // В современных системах всегда 0
-	LPTSTR cmd, // Командная строка
-	int mode) // Режим отображения окна
+int WINAPI _tWinMain(HINSTANCE This, // Р”РµСЃРєСЂРёРїС‚РѕСЂ С‚РµРєСѓС‰РµРіРѕ РїСЂРёР»РѕР¶РµРЅРёСЏ
+	HINSTANCE Prev, // Р’ СЃРѕРІСЂРµРјРµРЅРЅС‹С… СЃРёСЃС‚РµРјР°С… РІСЃРµРіРґР° 0
+	LPTSTR cmd, // РљРѕРјР°РЅРґРЅР°СЏ СЃС‚СЂРѕРєР°
+	int mode) // Р РµР¶РёРј РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РѕРєРЅР°
 {
 	Gdiplus::GdiplusStartupInput gdiplusStartInput;
 	UINT_PTR gdiplusToken;
 	Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartInput, nullptr);
-	HWND hWnd; // Дескриптор главного окна программы
-	MSG msg; // Структура для хранения сообщения
-	WNDCLASS wc; // Класс окна
-	// Определение класса окна
+	HWND hWnd; // Р”РµСЃРєСЂРёРїС‚РѕСЂ РіР»Р°РІРЅРѕРіРѕ РѕРєРЅР° РїСЂРѕРіСЂР°РјРјС‹
+	MSG msg; // РЎС‚СЂСѓРєС‚СѓСЂР° РґР»СЏ С…СЂР°РЅРµРЅРёСЏ СЃРѕРѕР±С‰РµРЅРёСЏ
+	WNDCLASS wc; // РљР»Р°СЃСЃ РѕРєРЅР°
+	// РћРїСЂРµРґРµР»РµРЅРёРµ РєР»Р°СЃСЃР° РѕРєРЅР°
 	wc.hInstance = This;
-	wc.lpszClassName = WinName; // Имя класса окна
-	wc.lpfnWndProc = WndProc; // Функция окна
-	wc.style = CS_HREDRAW | CS_VREDRAW; // Стиль окна
-	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION); // Стандартная иконка
-	wc.hCursor = LoadCursor(NULL, IDC_ARROW); // Стандартный курсор
-	wc.lpszMenuName = NULL; // Нет меню
-	wc.cbClsExtra = 0; // Нет дополнительных данных класса
-	wc.cbWndExtra = 0; // Нет дополнительных данных окна
-	// Заполнение окна белым цветом
+	wc.lpszClassName = WinName; // РРјСЏ РєР»Р°СЃСЃР° РѕРєРЅР°
+	wc.lpfnWndProc = WndProc; // Р¤СѓРЅРєС†РёСЏ РѕРєРЅР°
+	wc.style = CS_HREDRAW | CS_VREDRAW; // РЎС‚РёР»СЊ РѕРєРЅР°
+	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION); // РЎС‚Р°РЅРґР°СЂС‚РЅР°СЏ РёРєРѕРЅРєР°
+	wc.hCursor = LoadCursor(NULL, IDC_CROSS); // РЎС‚Р°РЅРґР°СЂС‚РЅС‹Р№ РєСѓСЂСЃРѕСЂ
+	wc.lpszMenuName = NULL; // РќРµС‚ РјРµРЅСЋ
+	wc.cbClsExtra = 0; // РќРµС‚ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… РґР°РЅРЅС‹С… РєР»Р°СЃСЃР°
+	wc.cbWndExtra = 0; // РќРµС‚ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… РґР°РЅРЅС‹С… РѕРєРЅР°
+	// Р—Р°РїРѕР»РЅРµРЅРёРµ РѕРєРЅР° Р±РµР»С‹Рј С†РІРµС‚РѕРј
 	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-	if (!RegisterClass(&wc)) return 0; // Регистрация класса окна 
-	// Создание окна
-	hWnd = CreateWindow(WinName, // Имя класса окна
-		_T("by Quality"), // Заголовок окна
-		WS_OVERLAPPEDWINDOW, // Стиль окна
+	if (!RegisterClass(&wc)) return 0; // Р РµРіРёСЃС‚СЂР°С†РёСЏ РєР»Р°СЃСЃР° РѕРєРЅР° 
+	// РЎРѕР·РґР°РЅРёРµ РѕРєРЅР°
+	hWnd = CreateWindow(WinName, // РРјСЏ РєР»Р°СЃСЃР° РѕРєРЅР°
+		_T("by Quality"), // Р—Р°РіРѕР»РѕРІРѕРє РѕРєРЅР°
+		WS_OVERLAPPEDWINDOW, // РЎС‚РёР»СЊ РѕРєРЅР°
 		CW_USEDEFAULT,// x
-		CW_USEDEFAULT,// y Размеры окна
+		CW_USEDEFAULT,// y Р Р°Р·РјРµСЂС‹ РѕРєРЅР°
 		CW_USEDEFAULT,// Width
 		CW_USEDEFAULT,// Height
-		HWND_DESKTOP, // Дескриптор родительского окна
-		NULL, // Нет меню
-		This, // Дескриптор приложения
-		NULL); // Дополнительной информации нет
+		HWND_DESKTOP, // Р”РµСЃРєСЂРёРїС‚РѕСЂ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РѕРєРЅР°
+		NULL, // РќРµС‚ РјРµРЅСЋ
+		This, // Р”РµСЃРєСЂРёРїС‚РѕСЂ РїСЂРёР»РѕР¶РµРЅРёСЏ
+		NULL); // Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё РЅРµС‚
 	
-	ShowWindow(hWnd, mode); //Показать окно
-	// Цикл обработки сообщений
+	ShowWindow(hWnd, mode); //РџРѕРєР°Р·Р°С‚СЊ РѕРєРЅРѕ
+	// Р¦РёРєР» РѕР±СЂР°Р±РѕС‚РєРё СЃРѕРѕР±С‰РµРЅРёР№
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
-		TranslateMessage(&msg);// Функция трансляции кодов нажатой клавиши
-		DispatchMessage(&msg); // Посылает сообщение функции WndProc()
+		TranslateMessage(&msg);// Р¤СѓРЅРєС†РёСЏ С‚СЂР°РЅСЃР»СЏС†РёРё РєРѕРґРѕРІ РЅР°Р¶Р°С‚РѕР№ РєР»Р°РІРёС€Рё
+		DispatchMessage(&msg); // РџРѕСЃС‹Р»Р°РµС‚ СЃРѕРѕР±С‰РµРЅРёРµ С„СѓРЅРєС†РёРё WndProc()
 	}
 
 	Gdiplus::GdiplusShutdown(gdiplusToken);
@@ -69,10 +69,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 		
+		hBrush = CreateSolidBrush(RGB(30, 129, 244));
+		FillRect(ps.hdc, &wndRect, hBrush);
 		draw(hdc);
-
-		hBrush = CreateSolidBrush(RGB(240, 128, 128));
-		//FillRect(ps.hdc, &wndRect, hBrush);
 
 		SetBkMode(ps.hdc, TRANSPARENT);
 		SetTextColor(ps.hdc, RGB(110, 168, 255));
@@ -91,19 +90,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 	case WM_COMMAND:
 		switch (wParam) {
 		case OnHelpClicked:
-			MessageBox(hWnd, L"Создано для рубрики \"Сам себе недохакер\"\nby Quality", L"Help", MB_OK);
+			MessageBox(hWnd, L"РЎРѕР·РґР°РЅРѕ РґР»СЏ СЂСѓР±СЂРёРєРё \"РЎР°Рј СЃРµР±Рµ РЅРµРґРѕС…Р°РєРµСЂ\"\nby Quality", L"РРЅС„РѕСЂРјР°С†РёСЏ", MB_OK);
 			break;
 		case OnDownloadClicked:
 			SetWindowLongPtr(hWnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);
-			SetWindowPos(hWnd, HWND_TOP, 0, 0, 3840, 2160, SWP_SHOWWINDOW);
-			PlaySound(TEXT("sound.wav"), NULL, SND_ASYNC);
-			//PlaySound(NULL, NULL, SND_ASYNC);
+			SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 3840, 2160, SWP_SHOWWINDOW);
+			PlaySound(TEXT("screamer.wav"), NULL, SND_ASYNC);
+			is_Screamer = true;
+			for (int x = 0; x < 100; x++) {
+				CallMelt(NULL, NULL, NULL, NULL);
+				SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 3840, 2160, SWP_SHOWWINDOW);
+				MessageBox(hWnd, L"CН‹МµН‰М”НћLМЅМЊН‚МёМ–OМ–Н©НЊМјНђSМ™МЂМѓМµН•EН­М‰НџМ‡М° YН‹НўМЈМ›М–OМ–Н©НЊМјНђUМ Т‰Н¦М™М·RНЎН Н‰МЋМњ EН­М‰НџМ‡М°YН‹НўМЈМ›М–EН­М‰НџМ‡М°SМ™МЂМѓМµН•", L"МєdМєМєoМєМєnМєМєtМє МєlМєМєoМєМєoМєМєkМє МєbМєМєeМєМєhМєМєiМєМєnМєМєdМє МєyМєМєoМєМєuМє", MB_OK | MB_ICONERROR);
+			}
 			break;
 		case OnDonateClicked:
-			MessageBox(hWnd, L"Немедленно верните маме её банковскую карту!", L"Нельзя так", MB_ICONERROR);
+			MessageBox(hWnd, L"РќРµРјРµРґР»РµРЅРЅРѕ РІРµСЂРЅРёС‚Рµ РјР°РјРµ РµС‘ Р±Р°РЅРєРѕРІСЃРєСѓСЋ РєР°СЂС‚Сѓ!", L"РќРµР»СЊР·СЏ С‚Р°Рє", MB_ICONERROR);
 			break;
 		case OnOpenClicked:
-			ShellExecute(hWnd, NULL, L"C:\\Users\\qwert\\Desktop\\Xily.bat", NULL, NULL, SW_SHOW); // Открытие файла
+			ShellExecute(hWnd, NULL, L"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", NULL, NULL, SW_MAXIMIZE); // РћС‚РєСЂС‹С‚РёРµ С„Р°Р№Р»Р°
 			break;
 		case OnExitClicked:
 			PostQuitMessage(0);
@@ -143,13 +147,13 @@ void MainWndVidgetes(HWND hWnd)
 
 	fontRect = { 220, 10, 500, 90 };
 
-	hDownload = CreateWindow(L"button", L"Устоновить!", WS_VISIBLE | WS_CHILD | ES_CENTER, 
+	hDownload = CreateWindow(L"button", L"РЈСЃС‚РѕРЅРѕРІРёС‚СЊ!", WS_VISIBLE | WS_CHILD | ES_CENTER, 
 		wndRect.left + 10, wndRect.bottom - DownloadBtnHeight - 10, DownloadBtnWidth, DownloadBtnHeight, hWnd, (HMENU)OnDownloadClicked, NULL, NULL);
-	hDonate = CreateWindow(L"button", L"Поддержать автора", WS_VISIBLE | WS_CHILD | ES_CENTER, 
+	hDonate = CreateWindow(L"button", L"РџРѕРґРґРµСЂР¶Р°С‚СЊ Р°РІС‚РѕСЂР°", WS_VISIBLE | WS_CHILD | ES_CENTER, 
 		wndRect.left + 10, wndRect.bottom - DonateBtnHeight - 80, DonateBtnWidth, DonateBtnHeight, hWnd, (HMENU)OnDonateClicked, NULL, NULL);
-	hExit = CreateWindow(L"button", L"Выйти", WS_VISIBLE | WS_CHILD | ES_CENTER, 
+	hExit = CreateWindow(L"button", L"Р’С‹Р№С‚Рё", WS_VISIBLE | WS_CHILD | ES_CENTER, 
 		wndRect.right - ExitBtnWidth - 30, wndRect.top + 10, ExitBtnWidth, ExitBtnHeight, hWnd, (HMENU)OnExitClicked, NULL, NULL);
-	hHelp = CreateWindow(L"button", L"Помощь", WS_VISIBLE | WS_CHILD | ES_CENTER,
+	hInfo = CreateWindow(L"button", L"РРЅС„Рѕ", WS_VISIBLE | WS_CHILD | ES_CENTER,
 		wndRect.right - HelpBtnWidth - 30, wndRect.top + 70, HelpBtnWidth, HelpBtnHeight, hWnd, (HMENU)OnHelpClicked, NULL, NULL);
 }
 
@@ -163,19 +167,108 @@ void draw(HDC hdc)
 	//gf.FillRectangle(&brush, 400, 100, 200, 300); // Drawing filled rect
 	gf.DrawRectangle(&pen, wndRect.left-5, wndRect.bottom - 150, 270, 150);
 
-	Gdiplus::Bitmap bmp(L"background.jpg");
-	gf.DrawImage(&bmp, 0, 0);
+	Gdiplus::Bitmap bmp(L"background_2.png");
+	gf.DrawImage(&bmp, -100, -170);
 }
 
-void drawScreamer() 
+void drawScreamer(HDC hdc) 
 {
+	Gdiplus::Graphics gf(hdc);
 
+	Gdiplus::Bitmap screamer(L"screamer1.jpg");
+	gf.DrawImage(&screamer, 1000, 0);
 }
 
 void FontApply()
 {
-	SendMessage(hExit, WM_SETFONT, (WPARAM)hDefaultFont, TRUE);
+	SendMessage(hInfo, WM_SETFONT, (WPARAM)hDefaultFont, TRUE);
 	SendMessage(hDonate, WM_SETFONT, (WPARAM)hDefaultFont, TRUE);
 	SendMessage(hDownload, WM_SETFONT, (WPARAM)hDefaultFont, TRUE);
-	SendMessage(hHelp, WM_SETFONT, (WPARAM)hDefaultFont, TRUE);
+	SendMessage(hExit, WM_SETFONT, (WPARAM)hDefaultFont, TRUE);
+}
+
+LRESULT	CALLBACK Melt(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) 
+{
+	switch (msg)
+	{
+	case WM_CREATE: 
+	{
+		HDC desktop = GetDC(HWND_DESKTOP);
+		HDC window = GetDC(hWnd);
+
+		BitBlt(window, 0, 0, srcWidth, srcHeitght, desktop, 0, 0, SRCCOPY);
+
+		ReleaseDC(hWnd, window);
+		ReleaseDC(HWND_DESKTOP, desktop);
+
+		SetTimer(hWnd, 0, interval, 0);
+
+		ShowWindow(hWnd, SW_SHOW);
+
+		break; 
+	}
+	case WM_PAINT:
+	{
+		ValidateRect(hWnd, 0);
+
+		break;
+	}
+	case WM_TIMER:
+	{
+		HDC wndw = GetDC(hWnd);
+
+		int x = (rand() % srcWidth) - (200 / 2);
+		int y = (rand() % 15);
+
+		int width = (rand() % 200);
+
+		BitBlt(wndw, x, y, width, srcHeitght, wndw, x, 0, SRCCOPY);
+
+		ReleaseDC(hWnd, wndw);
+
+		break;
+	}
+	case WM_DESTROY:
+	{
+		KillTimer(hWnd, 0);
+
+		PostQuitMessage(0);
+
+		break;
+	}
+
+	return 0;
+
+	}
+	return DefWindowProc(hWnd, msg, wParam, lParam);
+}
+
+int APIENTRY CallMelt(HINSTANCE hInst, HINSTANCE hPrev, LPSTR cmd, int showCmd)
+{
+	srcWidth = GetSystemMetrics(SM_CXSCREEN);
+	srcHeitght = GetSystemMetrics(SM_CYSCREEN);
+
+	WNDCLASS wndClass = { 0, Melt, 0, 0, NULL, 0, LoadCursorW(0, IDC_ARROW), 0, 0, L"ScreenMelting" };
+
+	if (RegisterClass(&wndClass))
+	{
+		HWND hWndM = CreateWindowExA(WS_EX_TOPMOST, "ScreenMelting", 0, WS_POPUP, 0, 0, srcWidth, srcHeitght, HWND_DESKTOP, 0, NULL, 0);
+
+		if (hWndM)
+		{
+			srand(GetTickCount());
+
+			MSG msg = { 0 };
+
+			while (msg.message != WM_QUIT)
+			{
+				if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
+				{
+					TranslateMessage(&msg);
+					DispatchMessage(&msg);
+				}
+			}
+		}
+	}
+	return 0;
 }
