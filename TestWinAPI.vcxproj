@@ -121,6 +121,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <UACExecutionLevel>HighestAvailable</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -143,8 +144,16 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes.h" />
     <ClInclude Include="keys.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SoftwareDefinitions.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TestWinAPI.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icoDyona.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
